@@ -35,7 +35,7 @@ namespace NavPaneDemo.UI
                 {
                     Symbol = Symbol.Edit,
                     Label = "Page2",
-                    DestinationPage = typeof(Views.Page2)
+                    DestinationPage = typeof(Views.PersonCreate)
                 },
                 new NavMenuItem()
                 {

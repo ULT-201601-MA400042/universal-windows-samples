@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="NavPaneDemo.UI.Views.Page2"
+    x:Class="NavPaneDemo.UI.Views.PersonCreate"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:NavPaneDemo.UI.Views"
@@ -9,8 +9,21 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
           EntranceNavigationTransitionInfo.IsTargetElement="True">
-
-        <TextBlock Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Page 2 Content"/>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="First Name" Grid.Row="0" Grid.Column="0" />
+        <TextBox Text="{x:Bind ViewModel.FirstName, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" />
+        <TextBlock Text="Last Name" Grid.Row="1" Grid.Column="0" />
+        <TextBox Text="{x:Bind ViewModel.LastName, Mode=TwoWay}" Grid.Row="1" Grid.Column="1" />
+        <Button x:Name="createPerson" Click="createPerson_Click" Grid.Row="2" Grid.Column="1">
+            <TextBlock Text="Create" />
+        </Button>
     </Grid>
 </Page>

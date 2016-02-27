@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Data.Entity;
+using NavPaneDemo.DataAccess.Models;
+using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation.Metadata;
@@ -22,6 +24,11 @@ namespace NavPaneDemo.UI
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
+            using (var db = new ContactDbContext())
+            {
+                db.Database.Migrate();
+            }
         }
 
         /// <summary>
