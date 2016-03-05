@@ -4,16 +4,24 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:CourseEnquiryApp.Views"
     xmlns:vm="using:CourseEnquiryApp.ViewModels"
+    xmlns:data="using:CourseEnquiryApp.DataAccess.Models"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    NavigationCacheMode="Enabled"  
     mc:Ignorable="d">
+
+    <Page.Transitions>
+        <TransitionCollection>
+            <EntranceThemeTransition />
+        </TransitionCollection>
+    </Page.Transitions>
 
     <Page.DataContext>
         <vm:LearnerCourseListViewModel x:Name="ViewModel" />
     </Page.DataContext>
 
     <Page.Resources>
-        <DataTemplate x:Name="CourseListTemplate" x:DataType="vm:LearnerCourseListItem">
+        <DataTemplate x:Name="CourseListTemplate" x:DataType="data:Course">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
@@ -32,13 +40,13 @@
                          HorizontalAlignment="Center"
                          Fill="Maroon"/>
                 <TextBlock Grid.Column="1"
-                           Text="{x:Bind CourseName}" 
+                           Text="{x:Bind Name}" 
                            x:Phase="1"  
                            Style="{ThemeResource BaseTextBlockStyle}"
                            Margin="12,6,0,0"/>
                 <TextBlock  Grid.Column="1"
                             Grid.Row="1"
-                            Text="{x:Bind CourseSummary}" 
+                            Text="{x:Bind Summary}" 
                             x:Phase="2"
                             Style="{ThemeResource BodyTextBlockStyle}"
                             Margin="12,0,0,6"/>
@@ -96,14 +104,17 @@
                           Grid.RowSpan="2"
                           Content="{x:Bind MasterListView.SelectedItem, Mode=OneWay}">
             <ContentPresenter.ContentTemplate>
-                <DataTemplate x:DataType="vm:LearnerCourseListItem">
+                <DataTemplate x:DataType="data:Course">
                     <StackPanel>
                         <TextBlock Style="{ThemeResource TitleTextBlockStyle}"
                                    Margin="0,8"       
-                                   Text="{x:Bind CourseName}"/>
+                                   Text="{x:Bind Name}"/>
                         <TextBlock Style="{ThemeResource BodyTextBlockStyle}"
                                    Margin="0,9" 
-                                   Text="{x:Bind CourseSummary}" />
+                                   Text="{x:Bind Summary}" />
+                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}"
+                                   Margin="0,9" 
+                                   Text="{x:Bind Overview}" />
                     </StackPanel>
                 </DataTemplate>
             </ContentPresenter.ContentTemplate>

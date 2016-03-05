@@ -8,9 +8,10 @@ using CourseEnquiryApp.DataAccess.Models;
 namespace CourseEnquiryApp.Migrations
 {
     [DbContext(typeof(CourseEnquiryDbContext))]
-    partial class CourseEnquiryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20160305055515_AddedCourse")]
+    partial class AddedCourse
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.0-rc1-16348");

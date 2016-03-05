@@ -101,16 +101,25 @@
     <Compile Include="AppShell.xaml.cs">
       <DependentUpon>AppShell.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataAccess\Models\Course.cs" />
     <Compile Include="DataAccess\Models\CourseEnquiryDbContext.cs" />
     <Compile Include="DataAccess\Models\Learner.cs" />
     <Compile Include="Migrations\20160302101712_InitialCreate.cs" />
     <Compile Include="Migrations\20160302101712_InitialCreate.designer.cs">
       <DependentUpon>20160302101712_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20160305055515_AddedCourse.cs" />
+    <Compile Include="Migrations\20160305055515_AddedCourse.designer.cs">
+      <DependentUpon>20160305055515_AddedCourse.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\CourseEnquiryDbContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\LearnerCourseCreateViewModel.cs" />
     <Compile Include="ViewModels\LearnerCourseListViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\LearnerCourseCreate.xaml.cs">
+      <DependentUpon>LearnerCourseCreate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LearnerCourseDetail.xaml.cs">
       <DependentUpon>LearnerCourseDetail.xaml</DependentUpon>
     </Compile>
@@ -143,6 +152,10 @@
   <ItemGroup />
   <ItemGroup>
     <Page Include="AppShell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LearnerCourseCreate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

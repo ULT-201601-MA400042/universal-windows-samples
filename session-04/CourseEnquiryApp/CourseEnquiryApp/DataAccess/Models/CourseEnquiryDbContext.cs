@@ -10,6 +10,7 @@ namespace CourseEnquiryApp.DataAccess.Models
     public class CourseEnquiryDbContext : DbContext
     {
         public DbSet<Learner> Learners { get; set; }
+        public DbSet<Course> Courses { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
