@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CourseEnquiryApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,9 +23,43 @@ namespace CourseEnquiryApp.Views
     /// </summary>
     public sealed partial class LearnerCourseList : Page
     {
+        private LearnerCourseListItem selectedCourse;
+
         public LearnerCourseList()
         {
             this.InitializeComponent();
+            // Need to give my OnLoaded event handler to the delegate, so that it is called when the Page
+            // is first created.
+
+            // Remember that this is using C# delegates.  In C++ or C these are known as function pointers.
+            // In this case we are adding a REFERENCE to a method to the Loaded event.  The loaded event
+            // contains a list of method references.  This is called the Invocation List.
+            this.Loaded += OnLoaded;
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+
+        }
+
+        // Need to ensure an initial list item is selected, to avoid getting an
+        // exception thrown.
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            if (ViewModel.CourseList.Count > 0)
+            {
+                MasterListView.SelectedIndex = 0;
+            }
+        }
+
+        private void MasterListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            selectedCourse = e.ClickedItem as LearnerCourseListItem;
+
+            if (PageSizeStatesGroup.CurrentState == MobileState)
+            {
+                Frame.Navigate(typeof(LearnerCourseDetail), selectedCourse);
+            }
         }
     }
 }

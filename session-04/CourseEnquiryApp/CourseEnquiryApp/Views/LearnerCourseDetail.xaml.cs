@@ -1,4 +1,4 @@
-﻿using CourseEnquiryApp.Views;
+﻿using CourseEnquiryApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,29 +16,25 @@ using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace CourseEnquiryApp
+namespace CourseEnquiryApp.Views
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class AppShell : Page
+    public sealed partial class LearnerCourseDetail : Page
     {
-        public AppShell()
+        private LearnerCourseListItem SelectedCourse { get; set; }
+
+        public LearnerCourseDetail()
         {
             this.InitializeComponent();
         }
 
-        public Frame AppFrame
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            get
-            {
-                return this.frame;
-            }
-        }
+            base.OnNavigatedTo(e);
 
-        private void RadioButton_Click(object sender, RoutedEventArgs e)
-        {
-            AppFrame.Navigate(typeof(LearnerCourseList));
+            SelectedCourse = e.Parameter as LearnerCourseListItem;
         }
     }
 }

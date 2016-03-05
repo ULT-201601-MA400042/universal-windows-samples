@@ -3,11 +3,110 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:CourseEnquiryApp.Views"
+    xmlns:vm="using:CourseEnquiryApp.ViewModels"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.DataContext>
+        <vm:LearnerCourseListViewModel x:Name="ViewModel" />
+    </Page.DataContext>
 
+    <Page.Resources>
+        <DataTemplate x:Name="CourseListTemplate" x:DataType="vm:LearnerCourseListItem">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Ellipse x:Name="Ellipse"
+                         Grid.RowSpan="2"
+                         Width ="32"
+                         Height="32"
+                         Margin="6"
+                         VerticalAlignment="Center"
+                         HorizontalAlignment="Center"
+                         Fill="Maroon"/>
+                <TextBlock Grid.Column="1"
+                           Text="{x:Bind CourseName}" 
+                           x:Phase="1"  
+                           Style="{ThemeResource BaseTextBlockStyle}"
+                           Margin="12,6,0,0"/>
+                <TextBlock  Grid.Column="1"
+                            Grid.Row="1"
+                            Text="{x:Bind CourseSummary}" 
+                            x:Phase="2"
+                            Style="{ThemeResource BodyTextBlockStyle}"
+                            Margin="12,0,0,6"/>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="MasterColumn" Width="320"  />
+            <ColumnDefinition x:Name="DetailColumn" Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="PageSizeStatesGroup">
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720"  />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="MasterListView.Visibility" Value="Visible" />
+                        <Setter Target="CourseDetailContentPresenter.Visibility" Value="Visible" />
+                        <Setter Target="MasterColumn.Width" Value="320" />
+                        <Setter Target="DetailColumn.Width" Value="*"/>
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="MobileState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"  />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="MasterListView.Visibility" Value="Visible" />
+                        <Setter Target="CourseDetailContentPresenter.Visibility" Value="Collapsed" />
+                        <Setter Target="MasterColumn.Width" Value="*" />
+                        <Setter Target="DetailColumn.Width" Value="0"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <ListView x:Name="MasterListView"
+                  ItemsSource="{x:Bind ViewModel.CourseList}"
+                  ItemTemplate="{StaticResource CourseListTemplate}"
+                  IsItemClickEnabled="True"
+                  ItemClick="MasterListView_ItemClick"
+                  Grid.Row="1">
+        </ListView>
+        <ContentPresenter x:Name="CourseDetailContentPresenter"
+                          Grid.Column="1"
+                          Grid.RowSpan="2"
+                          Content="{x:Bind MasterListView.SelectedItem, Mode=OneWay}">
+            <ContentPresenter.ContentTemplate>
+                <DataTemplate x:DataType="vm:LearnerCourseListItem">
+                    <StackPanel>
+                        <TextBlock Style="{ThemeResource TitleTextBlockStyle}"
+                                   Margin="0,8"       
+                                   Text="{x:Bind CourseName}"/>
+                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}"
+                                   Margin="0,9" 
+                                   Text="{x:Bind CourseSummary}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ContentPresenter.ContentTemplate>
+        </ContentPresenter>
     </Grid>
 </Page>

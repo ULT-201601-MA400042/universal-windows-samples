@@ -8,10 +8,10 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <SplitView x:Name="NavSplitView" DisplayMode="CompactInline" IsPaneOpen="true">
+        <SplitView x:Name="NavSplitView" DisplayMode="CompactInline" IsPaneOpen="false">
             <SplitView.Pane>
                 <StackPanel Margin="0,30,0,0">
-                    <RadioButton>
+                    <RadioButton Click="RadioButton_Click">
                         <StackPanel Orientation="Horizontal">
                             <SymbolIcon Symbol="ContactInfo" />
                             <TextBlock Text="My Courses" Margin="15,0,0,0" />
