@@ -10,9 +10,12 @@
     <StackPanel Padding="24,0" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <TextBlock Style="{ThemeResource TitleTextBlockStyle}"
                                    Margin="0,8"       
-                                   Text="{x:Bind SelectedCourse.CourseName}"/>
+                                   Text="{x:Bind SelectedCourse.Name}"/>
         <TextBlock Style="{ThemeResource BodyTextBlockStyle}"
                                    Margin="0,9" 
-                                   Text="{x:Bind SelectedCourse.CourseSummary}" />
+                                   Text="{x:Bind SelectedCourse.Summary}" />
+        <TextBlock Style="{ThemeResource BodyTextBlockStyle}"
+                                   Margin="0,9" 
+                                   Text="{x:Bind SelectedCourse.Overview}" />
     </StackPanel>
 </Page>

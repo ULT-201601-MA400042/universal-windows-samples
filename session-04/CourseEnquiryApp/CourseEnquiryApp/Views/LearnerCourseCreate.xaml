@@ -1,0 +1,39 @@
+﻿<Page
+    x:Class="CourseEnquiryApp.Views.LearnerCourseCreate"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CourseEnquiryApp.Views"
+    xmlns:vm="using:CourseEnquiryApp.ViewModels"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <vm:LearnerCourseCreateViewModel x:Name="ViewModel" />
+    </Page.DataContext>
+    
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="Course Name" Style="{ThemeResource TitleTextBlockStyle}"
+                   Grid.Row="0"/>
+        <TextBox Margin="15" Grid.Column="1" Text="{x:Bind ViewModel.Name, Mode=TwoWay}" />
+        <TextBlock Text="Course Summary" Style="{ThemeResource TitleTextBlockStyle}"
+                   Grid.Row="1"/>
+        <TextBox Margin="15" Grid.Column="1" Grid.Row="1" Text="{x:Bind ViewModel.Summary, Mode=TwoWay}" />
+        <TextBlock Text="Course Overview" Style="{ThemeResource TitleTextBlockStyle}"
+                   Grid.Row="2"/>
+        <TextBox Margin="15" Grid.Column="1" Grid.Row="2" Text="{x:Bind ViewModel.Overview, Mode=TwoWay}" />
+        <Button Content="Submit" Grid.Column="1" Grid.Row="3"
+                Click="Button_Click"/>
+    </Grid>
+</Page>

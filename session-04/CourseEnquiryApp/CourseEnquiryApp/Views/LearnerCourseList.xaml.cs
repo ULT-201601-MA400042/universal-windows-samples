@@ -1,6 +1,8 @@
-﻿using CourseEnquiryApp.ViewModels;
+﻿using CourseEnquiryApp.DataAccess.Models;
+using CourseEnquiryApp.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -12,6 +14,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -23,7 +26,7 @@ namespace CourseEnquiryApp.Views
     /// </summary>
     public sealed partial class LearnerCourseList : Page
     {
-        private LearnerCourseListItem selectedCourse;
+        private Course selectedCourse;
 
         public LearnerCourseList()
         {
@@ -35,6 +38,13 @@ namespace CourseEnquiryApp.Views
             // In this case we are adding a REFERENCE to a method to the Loaded event.  The loaded event
             // contains a list of method references.  This is called the Invocation List.
             this.Loaded += OnLoaded;
+
+            using (var context = new CourseEnquiryDbContext())
+            {
+                var courses = context.Courses.ToList();
+                ViewModel.CourseList =
+                    new ObservableCollection<Course>(courses);
+            };
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -54,11 +64,11 @@ namespace CourseEnquiryApp.Views
 
         private void MasterListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            selectedCourse = e.ClickedItem as LearnerCourseListItem;
+            selectedCourse = e.ClickedItem as Course;
 
             if (PageSizeStatesGroup.CurrentState == MobileState)
             {
-                Frame.Navigate(typeof(LearnerCourseDetail), selectedCourse);
+                Frame.Navigate(typeof(LearnerCourseDetail), selectedCourse, new DrillInNavigationTransitionInfo());
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using CourseEnquiryApp.DataAccess.Models;
 using CourseEnquiryApp.Views;
+using Microsoft.Data.Entity;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -38,7 +39,34 @@ namespace CourseEnquiryApp
 
             using (var context = new CourseEnquiryDbContext())
             {
-                //
+                // Remember the Migrate method lives inside the Microsoft.Data.Entity namespace
+                context.Database.Migrate();
+
+                if (context.Learners.Any() == false)
+                {
+                    var learner = new Learner()
+                    {
+                        FirstName = "Nicholas",
+                        LastName = "Attlee",
+                        DateOfBirth = new DateTime(1900, 1, 1),
+                        Email = "nicholas.attlee1@tafensw.edu.au",
+                        Courses = new List<Course>()
+                        {
+                            new Course()
+                            {
+                                Name = "Mobile Application Development",
+                                Summary = "Learn UWP, Android, and iOS",
+                                Overview = "Some long description of the course",
+                                StartDate = new DateTime(2016, 2, 20),
+                                EndDate = new DateTime(2016, 5, 7)
+                            }
+                        }
+                    };
+
+                    context.Learners.Add(learner);
+
+                    context.SaveChanges();
+                }
             }
         }
 
@@ -82,7 +110,7 @@ namespace CourseEnquiryApp
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                appShell.AppFrame.Navigate(typeof(LearnerCourseList), e.Arguments);
+                appShell.AppFrame.Navigate(typeof(LearnerCourseCreate), e.Arguments);
             }
             // Ensure the current window is active
             Window.Current.Activate();
